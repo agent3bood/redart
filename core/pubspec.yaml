@@ -1,7 +1,7 @@
-name: nexus_core
+name: core
 description: Reactive Programming for Dart
 version: 0.0.1
-repository: https://github.com/agent3bood/nexus
+repository: https://github.com/agent3bood/core
 
 environment:
   sdk: ^3.3.1
