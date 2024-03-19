@@ -1,7 +1,7 @@
-name: core
+name: redart
 description: Reactive Programming for Dart
 version: 0.0.1
-repository: https://github.com/agent3bood/core
+repository: https://github.com/agent3bood/redart
 
 environment:
   sdk: ^3.3.1
