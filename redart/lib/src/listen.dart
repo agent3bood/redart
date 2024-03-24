@@ -2,11 +2,15 @@ library redart;
 
 import '../redart.dart';
 
-Function listen(Callback fn) {
+Callback listen(Callback fn) {
   final prevListener = reListener;
-  // initial run
   final List<List<Callback>> listeners = [];
-  reListener = (fn, listeners);
+  if (reReadWithoutListening) {
+    reListener = null;
+  } else {
+    reListener = (fn, listeners);
+  }
+  // initial run
   fn();
   reListener = prevListener;
 

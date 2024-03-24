@@ -16,4 +16,12 @@ mixin ControllerUtils {
     }
     scheduledCallbacks.add(callback);
   }
+
+  final List<Callback> disposeListeners = [];
+
+  void dispose() {
+    for (final dispose in disposeListeners) {
+      dispose();
+    }
+  }
 }
