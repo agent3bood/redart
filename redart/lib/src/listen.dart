@@ -5,10 +5,14 @@ import '../redart.dart';
 Callback listen(Callback fn) {
   final prevListener = reListener;
   final List<List<Callback>> listeners = [];
+  wrappedListener() {
+    listeners.clear();
+    fn();
+  }
   if (reReadWithoutListening) {
     reListener = null;
   } else {
-    reListener = (fn, listeners);
+    reListener = (wrappedListener, listeners);
   }
   // initial run
   fn();
@@ -17,7 +21,7 @@ Callback listen(Callback fn) {
   // return dispose
   return () {
     for (final listener in listeners) {
-      listener.remove(fn);
+      listener.remove(wrappedListener);
     }
   };
 }
