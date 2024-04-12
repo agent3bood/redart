@@ -6,7 +6,7 @@ import 'package:_fe_analyzer_shared/src/macros/api.dart';
 
 macro
 
-class Re implements FieldDeclarationsMacro, MethodDeclarationsMacro {
+class Re implements FieldDeclarationsMacro /*, MethodDeclarationsMacro*/ {
   const Re();
 
   @override
@@ -112,63 +112,64 @@ class Re implements FieldDeclarationsMacro, MethodDeclarationsMacro {
     ]);
   }
 
-  @override
-  FutureOr<void> buildDeclarationsForMethod(MethodDeclaration method,
-      MemberDeclarationBuilder builder) {
-    if (method.isGetter) {
-      return _buildDeclarationsForGetter(method, builder);
-    }
-  }
-
-  Future<void> _buildDeclarationsForGetter(MethodDeclaration method,
-      MemberDeclarationBuilder builder) async {
-    final name = method.identifier.name;
-    if (!name.startsWith('_')) {
-      throw ArgumentError('Reactive fields must start with an underscore');
-    }
-    final String privateName = '_$name';
-    String publicName = name;
-    while (publicName.startsWith('_')) {
-      publicName = publicName.substring(1);
-    }
-
-    final Identifier boolIdentifier =
-    await builder.resolveIdentifier(Uri.parse('dart:core'), 'bool');
-    final Identifier reListenerIdentifier = await builder.resolveIdentifier(
-        Uri.parse('package:redart/src/globals.dart'), 'reListener');
-    final Identifier listenIdentifier = await builder.resolveIdentifier(
-        Uri.parse('package:redart/src/listen.dart'), 'listen');
-
-    final listening = DeclarationCode.fromParts([
-      boolIdentifier, ' ${privateName}Listening = false;\n',
-    ]);
-    builder.declareInType(listening);
-
-    final privateField = DeclarationCode.fromParts([
-      'late ', method.returnType.code, ' $privateName;',
-    ]);
-    builder.declareInType(privateField);
-
-
-    final getter = DeclarationCode.fromParts([
-      method.returnType.code, ' get $publicName {\n',
-      '  ', 'if(!${privateName}Listening) {\n',
-      '    ', 'var prevListener = ', reListenerIdentifier, ';\n',
-      '    ', 'final dispose = ', listenIdentifier, '(() {\n',
-      '      ', '$privateName = $name;\n',
-      '      ', 'if(${privateName}Listening) {\n',
-      '        ', 'prevListener?.\$1();\n',
-      '      ', '}\n',
-      '    ', '});\n',
-      '    ', 'disposeListeners.add(() {\n',
-      '      ', 'prevListener = null;\n',
-      '      ', 'dispose();\n',
-      '    ', '});\n',
-      '    ', '${privateName}Listening = true;\n',
-      '  ', '}\n',
-      '  ', 'return $privateName;\n',
-      '}',
-    ]);
-    builder.declareInType(getter);
-  }
+  // methods & getters can be memoized, not reactive
+  // @override
+  // FutureOr<void> buildDeclarationsForMethod(MethodDeclaration method,
+  //     MemberDeclarationBuilder builder) {
+  //   if (method.isGetter) {
+  //     return _buildDeclarationsForGetter(method, builder);
+  //   }
+  // }
+  //
+  // Future<void> _buildDeclarationsForGetter(MethodDeclaration method,
+  //     MemberDeclarationBuilder builder) async {
+  //   final name = method.identifier.name;
+  //   if (!name.startsWith('_')) {
+  //     throw ArgumentError('Reactive fields must start with an underscore');
+  //   }
+  //   final String privateName = '_$name';
+  //   String publicName = name;
+  //   while (publicName.startsWith('_')) {
+  //     publicName = publicName.substring(1);
+  //   }
+  //
+  //   final Identifier boolIdentifier =
+  //   await builder.resolveIdentifier(Uri.parse('dart:core'), 'bool');
+  //   final Identifier reListenerIdentifier = await builder.resolveIdentifier(
+  //       Uri.parse('package:redart/src/globals.dart'), 'reListener');
+  //   final Identifier listenIdentifier = await builder.resolveIdentifier(
+  //       Uri.parse('package:redart/src/listen.dart'), 'listen');
+  //
+  //   final listening = DeclarationCode.fromParts([
+  //     boolIdentifier, ' ${privateName}Listening = false;\n',
+  //   ]);
+  //   builder.declareInType(listening);
+  //
+  //   final privateField = DeclarationCode.fromParts([
+  //     'late ', method.returnType.code, ' $privateName;',
+  //   ]);
+  //   builder.declareInType(privateField);
+  //
+  //
+  //   final getter = DeclarationCode.fromParts([
+  //     method.returnType.code, ' get $publicName {\n',
+  //     '  ', 'if(!${privateName}Listening) {\n',
+  //     '    ', 'var prevListener = ', reListenerIdentifier, ';\n',
+  //     '    ', 'final dispose = ', listenIdentifier, '(() {\n',
+  //     '      ', '$privateName = $name;\n',
+  //     '      ', 'if(${privateName}Listening) {\n',
+  //     '        ', 'prevListener?.\$1();\n',
+  //     '      ', '}\n',
+  //     '    ', '});\n',
+  //     '    ', 'disposeListeners.add(() {\n',
+  //     '      ', 'prevListener = null;\n',
+  //     '      ', 'dispose();\n',
+  //     '    ', '});\n',
+  //     '    ', '${privateName}Listening = true;\n',
+  //     '  ', '}\n',
+  //     '  ', 'return $privateName;\n',
+  //     '}',
+  //   ]);
+  //   builder.declareInType(getter);
+  // }
 }
