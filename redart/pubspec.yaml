@@ -6,97 +6,19 @@ repository: https://github.com/agent3bood/redart
 environment:
   sdk: ">=3.3.0-0 <4.0.0"
 
-#dependencies:
+dependencies:
+  macros: ^0.1.2
 
 dev_dependencies:
   _fe_analyzer_shared: any
-  frontend_server: any
   lints: ^3.0.0
   test: ^1.24.0
 
+# https://github.com/dart-lang/language/blob/main/working/macros/example/pubspec.yaml
 dependency_overrides:
-  _fe_analyzer_shared:
+  # Not yet published.
+  macros:
     git:
       url: https://github.com/dart-lang/sdk.git
-      path: pkg/_fe_analyzer_shared
-      ref: main
-  _js_interop_checks:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/_js_interop_checks
-      ref: main
-  analyzer:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/analyzer
-      ref: main
-  build_integration:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/build_integration
-      ref: main
-  compiler:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/compiler
-      ref: main
-  dart2js_info:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/dart2js_info
-      ref: main
-  dart2wasm:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/dart2wasm
-      ref: main
-  dev_compiler:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/dev_compiler
-      ref: main
-  front_end:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/front_end
-      ref: main
-  frontend_server:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/frontend_server
-      ref: main
-  js_ast:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/js_ast
-      ref: main
-  js_runtime:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/js_runtime
-      ref: main
-  js_shared:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/js_shared
-      ref: main
-  kernel:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/kernel
-      ref: main
-  mmap:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/mmap
-      ref: main
-  vm:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/vm
-      ref: main
-  wasm_builder:
-    git:
-      url: https://github.com/dart-lang/sdk.git
-      path: pkg/wasm_builder
+      path: pkg/macros
       ref: main
