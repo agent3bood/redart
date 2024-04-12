@@ -8,7 +8,7 @@ mixin ControllerUtils {
   void scheduleCallback(Callback callback) {
     if(scheduledCallbacks.isEmpty) {
       scheduleMicrotask(() {
-        for (final callback in scheduledCallbacks) {
+        for (final callback in [...scheduledCallbacks]) {
           callback();
         }
         scheduledCallbacks.clear();
