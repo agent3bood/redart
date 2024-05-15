@@ -4,9 +4,7 @@ import 'dart:async';
 
 import 'package:macros/macros.dart';
 
-macro
-
-class Re implements FieldDeclarationsMacro /*, MethodDeclarationsMacro*/ {
+macro class Re implements FieldDeclarationsMacro /*, MethodDeclarationsMacro*/ {
   const Re();
 
   @override
@@ -82,7 +80,7 @@ class Re implements FieldDeclarationsMacro /*, MethodDeclarationsMacro*/ {
       '  ', 'final val = ', field.identifier, ';\n',
       '  ', 'if (', reListener, ' != null) {\n',
       '    ', '_${publicName}Listeners ??= [];\n',
-      '    ', 'if (!_${publicName}Listeners!.contains(', reListener, '!.\$1)) {\n',
+      '    ', 'if (!_${publicName}Listeners!.contains(', reListener, '!.\$1)) {\n', // TODO bcz we already clear listeners in `listen` rethink this one
       '      ', '_${publicName}Listeners!.add(', reListener, '!.\$1);\n',
       '      ', reListener, '!.\$2.add(_${publicName}Listeners!);\n',
       '    ', '}\n',
