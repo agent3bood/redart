@@ -14,33 +14,33 @@ class Form with ControllerUtils {
 
   @Re()
   String _password = '';
-
-  String get name {
-    return '$firstName $lastName';
-  }
-
-  @Re()
-  bool get _firstNameValid {
+  //
+  // String get name {
+  //   return '$firstName $lastName';
+  // }
+  //
+  // @Re()
+  bool get firstNameValid {
     return firstName.isNotEmpty;
   }
-
-  @Re()
-  bool get _lastNameValid {
+  //
+  // @Re()
+  bool get lastNameValid {
     return lastName.isNotEmpty;
   }
-
-  @Re()
-  bool get _emailValid {
+  //
+  // @Re()
+  bool get emailValid {
     return email.isNotEmpty && email.contains('@');
   }
-
-  @Re()
-  bool get _passwordValid {
+  //
+  // @Re()
+  bool get passwordValid {
     return password.isNotEmpty && password.length > 6;
   }
-
-  @Re()
-  bool get _formValid {
+  //
+  // @Re()
+  bool get formValid {
     return firstNameValid && lastNameValid && emailValid && passwordValid;
   }
 

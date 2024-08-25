@@ -1,3 +1,4 @@
 # Reactive Dart
 
-Reactive Programming for Dart using *macros*.
+Reactive Programming for Dart using [*macros*](https://dart.dev/language/macros).
+

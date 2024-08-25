@@ -2,6 +2,7 @@ library redart;
 
 import '../redart.dart';
 
+// return dispose
 Callback listen(Callback fn) {
   final prevListener = reListener;
   final List<List<Callback>> listeners = [];
