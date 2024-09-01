@@ -14,6 +14,7 @@ class Form with ControllerUtils {
 
   @Re()
   String _password = '';
+
   //
   // String get name {
   //   return '$firstName $lastName';
@@ -23,21 +24,25 @@ class Form with ControllerUtils {
   bool get firstNameValid {
     return firstName.isNotEmpty;
   }
+
   //
   // @Re()
   bool get lastNameValid {
     return lastName.isNotEmpty;
   }
+
   //
   // @Re()
   bool get emailValid {
     return email.isNotEmpty && email.contains('@');
   }
+
   //
   // @Re()
   bool get passwordValid {
     return password.isNotEmpty && password.length > 6;
   }
+
   //
   // @Re()
   bool get formValid {
