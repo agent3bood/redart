@@ -6,10 +6,16 @@ import 'package:redart/redart.dart';
 /// should be removed and replaced by a macro, or augmented library
 mixin ControllerUtils {
   void scheduleCallback(Callback callback) {
-    if(scheduledCallbacks.isEmpty) {
+    if (scheduledCallbacks.isEmpty) {
       scheduleMicrotask(() {
         for (final callback in [...scheduledCallbacks]) {
-          callback();
+          try {
+            callback();
+          } catch (e, s) {
+            // TODO logging
+            print(e);
+            print(s);
+          }
         }
         scheduledCallbacks.clear();
       });
